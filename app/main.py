@@ -52,12 +52,15 @@ def ensure_user_columns():
         conn.execute(text("ALTER TABLE weekly_goals ADD COLUMN IF NOT EXISTS user_id INTEGER"))
         conn.execute(text("ALTER TABLE marrow_sync_state ADD COLUMN IF NOT EXISTS user_id INTEGER"))
 
-
+origins = [
+    "http://localhost:5173",
+    "https://medprep-web-frontend.vercel.app",
+]
 ensure_user_columns()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
